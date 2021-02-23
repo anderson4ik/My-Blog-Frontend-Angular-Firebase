@@ -1,0 +1,60 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <h1>Create new post.</h1>
+
+  <div
+    [ngClass]="{invalid: form.get('title').touched && form.get('title').invalid}"
+    class="form-control"
+  >
+    <label for="title">Title:</label>
+    <input type="text" id="title" formControlName="title">
+    <div
+      *ngIf="form.get('title').touched && form.get('title').invalid"
+      class="validation">
+      <small
+        *ngIf="form.get('title').errors.required">
+        Title is required!
+      </small>
+      <small
+        *ngIf="form.get('title').errors.minlength">
+        The title minimum length should be
+        {{form.get('title').errors.minlength.requiredLength}}
+        characters.
+        But now it {{form.get('title').errors.minlength.actualLength}} characters.
+      </small>
+    </div>
+  </div>
+
+  <div class="form-control">
+    <label>Content:</label>
+    <quill-editor formControlName="text"></quill-editor>
+  </div>
+
+  <div
+    [ngClass]="{invalid: form.get('author').touched && form.get('author').invalid}"
+    class="form-control"
+  >
+    <label for="author">Author:</label>
+    <input type="text" id="author" formControlName="author">
+    <div
+      *ngIf="form.get('author').touched && form.get('author').invalid"
+      class="validation">
+      <small
+        *ngIf="form.get('author').errors.required">
+        Author is required!
+      </small>
+      <small
+        *ngIf="form.get('author').errors.minlength">
+        The author minimum length should be
+        {{form.get('author').errors.minlength.requiredLength}}
+        characters.
+        But now it {{form.get('author').errors.minlength.actualLength}} characters.
+      </small>
+    </div>
+  </div>
+
+  <button
+    type="submit"
+    class="btn btn-block btn-dark"
+    [disabled]="form.invalid"
+  >Create Post</button>
+</form>
